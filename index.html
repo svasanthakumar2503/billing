@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Billing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 900px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .datetime {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .product-card {
+            width: 20%;
+            background: #f8f9fa;
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+        }
+
+        .product-card h3 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        .qty-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qty-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            width: 20px;
+        }
+
+        .qty {
+            width: 25px;
+            text-align: center;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            padding: 3px;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .total {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .remark-box {
+            margin-top: 10px;
+        }
+
+        .print-btn, .reset-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 49%;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .reset-btn {
+            background-color: #dc3545;
+        }
+
+        @media print {
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2> Billing Page</h2>
+
+        <!-- Date & Time Section -->
+        <div class="datetime">
+            <label>Date:</label> <span id="currentDate"></span> |
+            <label>Time:</label> <span id="currentTime"></span>
+        </div>
+
+        <label>Customer Name:</label>
+        <input type="text" id="customerName" placeholder="Enter customer name">
+
+        <label>Mobile Number:</label>
+        <input type="text" id="mobileNumber" placeholder="Enter mobile number">
+
+        <div class="product-container">
+            <div class="product-card">
+                <h3>Hair Cut</h3>
+                <div class="price">100 rs</div>
+                <div class="qty-container">
+                    <button class="qty-btn">-</button>
+                    <input type="text" class="qty" value="0" readonly>
+                    <button class="qty-btn">+</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <h3>Beard Trim</h3>
+                <div class="price">60 rs</div>
+                <div class="qty-container">
+                    <button class="qty-btn">-</button>
+                    <input type="text" class="qty" value="0" readonly>
+                    <button class="qty-btn">+</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <h3>Combo Pack</h3>
+                <div class="price">150 rs</div>
+                <div class="qty-container">
+                    <button class="qty-btn">-</button>
+                    <input type="text" class="qty" value="0" readonly>
+                    <button class="qty-btn">+</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <h3>Face Pack</h3>
+                <div class="price">250 rs</div>
+                <div class="qty-container">
+                    <button class="qty-btn">-</button>
+                    <input type="text" class="qty" value="0" readonly>
+                    <button class="qty-btn">+</button>
+                </div>
+            </div>
+        </div>
+
+        <table id="billTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Remark</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="total">
+            Total Price: <span id="totalPrice">0</span> rs
+        </div>
+
+        <div class="remark-box">
+            <label>Overall Remark:</label>
+            <input type="text" id="overallRemark" placeholder="Enter overall remark (if any)">
+        </div>
+
+        <button class="print-btn">Print Bill</button>
+        <button class="reset-btn">Reset</button>
+
+    </div>
+
+    <script>
+        function updateDateTime() {
+            let today = new Date();
+            let options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("currentDate").innerText = today.toLocaleDateString('en-US', options);
+            document.getElementById("currentTime").innerText = today.toLocaleTimeString('en-US');
+        }
+
+        updateDateTime();
+        setInterval(updateDateTime, 1000); // Update time every second
+    </script>
+
+</body>
+</html>
